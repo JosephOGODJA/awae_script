@@ -7,6 +7,9 @@ from colorama import Fore, Back, Style
 # We disable certificate warning from websites with insecure certificate
 requests.packages.urllib3.disable_warnings(requests.packages.urllib3.exceptions.InsecureRequestWarning)
 
+# Adding proxies to the programs
+proxies = {'http':'http://127.0.0.1:8080','https':'http://127.0.0.1:8080'}
+
 def format_text(title, item):
 	cr = '\r\n'
 	section_break = cr + "*" * 20 + cr
@@ -14,7 +17,7 @@ def format_text(title, item):
 	text = Style.BRIGHT + Fore.RED + title + Fore.RESET + section_break + item + section_break
 	return text
 
-r = requests.get('https://access.redhat.com/errata/RHBA-2023:06601', verify=False)
+r = requests.get('https://access.redhat.com/errata/RHBA-2023:06601', verify=False, proxies=proxies)
 
 print(format_text('r.status_code is: ', r.status_code))
 print(format_text('r.header is: ', r.headers))
